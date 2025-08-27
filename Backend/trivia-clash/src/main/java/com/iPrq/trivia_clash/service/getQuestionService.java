@@ -2,8 +2,11 @@ package com.iPrq.trivia_clash.service;
 
 import com.iPrq.trivia_clash.model.ApiResponse;
 import com.iPrq.trivia_clash.model.QuestionDTO;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+
+@Service
 public class getQuestionService {
 
     private final RestTemplate restTemplate;
