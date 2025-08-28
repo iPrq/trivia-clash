@@ -15,6 +15,10 @@ public class ScoreManager {
             return new ConcurrentHashMap<>(userScores);
         }
 
+        public void registerUser(String username) {
+            userScores.putIfAbsent(username, 0);
+        }
+
 
     public void resetAllScores() {
         userScores.replaceAll((k, v) -> 0);

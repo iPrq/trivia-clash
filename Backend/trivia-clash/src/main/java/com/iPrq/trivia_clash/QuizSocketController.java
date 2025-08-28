@@ -3,7 +3,7 @@ package com.iPrq.trivia_clash;
 import com.iPrq.trivia_clash.model.AnswerPayload;
 import com.iPrq.trivia_clash.model.QuestionDTO;
 import com.iPrq.trivia_clash.model.ScoreResponse;
-import com.iPrq.trivia_clash.model.TriviaQuestion;
+
 import com.iPrq.trivia_clash.service.getQuestionService;
 import com.iPrq.trivia_clash.service.verifyAnswerService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -15,14 +15,17 @@ public class QuizSocketController {
 
     private final getQuestionService getQuestionService;
     private final verifyAnswerService verifyAnswerService;
+
     public QuizSocketController(getQuestionService getQuestionService, verifyAnswerService verifyAnswerService) {
         this.getQuestionService = getQuestionService;
         this.verifyAnswerService = verifyAnswerService;
+
     }
 
     @MessageMapping("/start")
     @SendTo("/topic/question")
-    public QuestionDTO sendQuestion(){
+    public QuestionDTO sendQuestion(AnswerPayload payload){
+
         return getQuestionService.execute("easy","9");
     }
 
