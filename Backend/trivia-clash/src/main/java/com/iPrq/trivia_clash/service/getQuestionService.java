@@ -23,7 +23,7 @@ public class getQuestionService {
 
         ApiResponse response = restTemplate.getForObject(url, ApiResponse.class);
         if (response != null && response.getResults() != null && !response.getResults().isEmpty()) {
-            var question = response.getResults().getFirst();
+            var question = response.getResults().get(0);
             String options = String.join(", ", question.getIncorrect_answers()) + ", " + question.getCorrect_answer();
             gameSession.setCurrentQuestion(question);
             return new QuestionDTO(question.getQuestion(), options, question.getCorrect_answer());
