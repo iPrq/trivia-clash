@@ -10,9 +10,12 @@ import org.springframework.web.client.RestTemplate;
 public class getQuestionService {
 
     private final RestTemplate restTemplate;
+    private final GameSession gameSession;
 
-    public getQuestionService(RestTemplate restTemplate) {
+
+    public getQuestionService(RestTemplate restTemplate, GameSession gameSession) {
         this.restTemplate = restTemplate;
+        this.gameSession = gameSession;
     }
 
     public QuestionDTO execute(String difficulty, String category) {
@@ -22,6 +25,7 @@ public class getQuestionService {
         if (response != null && response.getResults() != null && !response.getResults().isEmpty()) {
             var question = response.getResults().getFirst();
             String options = String.join(", ", question.getIncorrect_answers()) + ", " + question.getCorrect_answer();
+            gameSession.setCurrentQuestion(question);
             return new QuestionDTO(question.getQuestion(), options, question.getCorrect_answer());
         }
 
